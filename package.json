@@ -1,0 +1,25 @@
+{
+  "name": "library-system",
+  "version": "1.0.0",
+  "description": "A library system where users borrow books.",
+  "main": "",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wolfman360/library-system.git"
+  },
+  "author": "mark bashir",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wolfman360/library-system/issues"
+  },
+  "homepage": "https://github.com/wolfman360/library-system#readme",
+  "dependencies": {
+    "jest": "^24.8.0"
+  }
+}
