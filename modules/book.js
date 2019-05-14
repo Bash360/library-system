@@ -1,5 +1,5 @@
 bookDatabase = require('./../database/database.js').bookDatabase;
-generateBookID = require('../helper-functions/helper-functions.js').generateBookID;
+generateBookID = require('../helper-functions/helper-functions.js').generateID;
 search = require('../helper-functions/helper-functions.js').search;
 var Book = function () {
 
@@ -60,7 +60,7 @@ Book.prototype.update = function (bookID, copies) {
   }
   if (found) {
     bookFound.copies += copies;
-    return `${copies} added to ${bookFound.title}`;
+    return `${copies} copies added to ${bookFound.title}`;
   }
   return found;
 }
@@ -70,28 +70,28 @@ Book.prototype.readAll = function () {
   }
   return bookDatabase;
 }
-Book.prototype.delete=function (bookID) {
+Book.prototype.delete = function (bookID) {
   var found = false;
   var bookFound;
   for (counter = 0; counter < bookDatabase.length; counter++) {
     if (bookDatabase[counter].bookID === bookID) {
       found = true;
       bookFound = bookDatabase[counter];
-      index=counter;
+      index = counter;
       break;
     }
   }
   if (found) {
-    bookFound.copies===1?bookDatabase.splice(index,1):bookFound.copies -=1;
+    bookFound.copies === 1 ? bookDatabase.splice(index, 1) : bookFound.copies -= 1;
     return `deleted`;
   }
   return found;
 }
-Book.prototype.deleteAll=function(){
-  if(bookDatabase.length===0){
+Book.prototype.deleteAll = function () {
+  if (bookDatabase.length === 0) {
     return 'database empty';
   }
-  bookDatabase.length=0;
+  bookDatabase.length = 0;
   return 'deleted all books';
 }
 
