@@ -1,5 +1,5 @@
 bookDatabase = require('./../database/database.js').bookDatabase;
-generateBookID = require('../helper-functions/helper-functions.js').generateID;
+generateBookID = require('../helper-functions/helper-functions.js').generateBookID;
 search = require('../helper-functions/helper-functions.js').search;
 var Book = function () {
 

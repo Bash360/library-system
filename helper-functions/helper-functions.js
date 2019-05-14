@@ -1,11 +1,17 @@
 bookDatabase = require('./../database/database.js').bookDatabase;
-bookpriorityDatabase = require('./../database/database.js').booksPriorityDatabase;
+const bookpriorityDatabase = require('./../database/database.js').booksPriorityDatabase;
+const requestDatabase = require('./../database/database.js').requestDatabase;
 
 function generateRandom() {
   return Math.floor(Math.random() * 1000000).toString();
 }
 
-function generateID() {
+function generateBookID() {
+  random = generateRandom();
+  var ID = random.length <= 4 ? generateRandom() : random;
+  return ID;
+}
+function generateUserID() {
   random = generateRandom();
   var ID = random.length <= 4 ? generateRandom() : random;
   return ID;
@@ -38,7 +44,7 @@ function generatePriority(role) {
   }
 }
 
-function priorityComplexity(bookID, userID, priority, timeRequest) {
+function priorityComplexity(bookID, titleOfBook, authorOfBook, userID, priority, timeRequest) {
   found = false;
   for (counter = 0; counter < bookpriorityDatabase.length; counter++) {
     if (bookpriorityDatabase[counter].bookID === bookID) {
@@ -53,18 +59,35 @@ function priorityComplexity(bookID, userID, priority, timeRequest) {
     request = [priority + timeRequest + '.' + userID];
     bookpriorityDatabase.push({
       bookID,
-      request
+      request,
+      titleOfBook,
+      authorOfBook,
 
 
 
     });
   }
 }
+function getRequest(userID,bookID) {
+  var found = false;
+  for (counter = 0; counter < requestDatabase.length; counter++) {
+    if (requestDatabase[counter].userID ===userID && requestDatabase[counter].bookID ===bookID) {
+      found = requestDatabase[counter];
+    }
+  }
+  if (found) {
+    return found;
+  }
+
+  
+}
 
 
 module.exports = {
-  generateID,
+  generateBookID,
+  generateUserID,
   search,
   generatePriority,
-  priorityComplexity
+  priorityComplexity,
+  getRequest
 };

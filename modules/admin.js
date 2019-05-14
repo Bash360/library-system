@@ -1,6 +1,12 @@
 var book = require('./book.js');
 var user = require('./user.js');
 const requestDatabase = require('./../database/database.js').requestDatabase;
+const bookDatabase = require('./../database/database.js').bookDatabase;
+var search = require('../helper-functions/helper-functions.js').search;
+var getRequest = require('../helper-functions/helper-functions.js').getRequest;
+const bookpriorityDatabase = require('./../database/database.js').booksPriorityDatabase;
+
+
 var Admin = function (name) {
   this.name = name;
   user.call(this, name, 'teacher');
@@ -27,6 +33,31 @@ Admin.prototype.viewAllRequest = function () {
     return 'no request';
   }
   return requestDatabase;
+}
+Admin.prototype.handleRequest = function () {
+  for (counter = 0; counter < bookpriorityDatabase.length; counter++) {
+    var currentBookDetails = bookpriorityDatabase[counter];
+    var bookTitle = currentBookDetails.titleOfBook;
+    var bookAuthor = currentBookDetails.authorOfBook;
+    var bookID = currentBookDetails.bookID;
+    currentBook = search(bookTitle, bookAuthor);
+    var length=bookpriorityDatabase[counter].request.length
+    for (secondCounter = 0; secondCounter < length; secondCounter++) {
+      var unfilteredUserID = bookpriorityDatabase[counter].request[secondCounter];
+      var filteredUserID = unfilteredUserID.toString().match(/(?<=\.)\d{1,}/g).join('');
+      var request = getRequest(filteredUserID, bookID);
+      if (currentBook.copies !== 0) {
+        currentBook.copies -= 1;
+        return request.requestStatus = 'request Approved';
+      } else {
+        request.requestStatus = 'book taken';
+
+
+      }
+    }
+  }
+  // bookpriorityDatabase.length=0;
+
 }
 
 module.exports = Admin;
