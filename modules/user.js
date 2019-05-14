@@ -4,7 +4,6 @@ var search = require('../helper-functions/helper-functions.js').search;
 var generatePriority = require('../helper-functions/helper-functions.js').generatePriority;
 var priorityQueue = require('../helper-functions/helper-functions.js').priorityComplexity;
 const requestDatabase = require('./../database/database.js').requestDatabase;
-var bookpriorityDatabase = require('./../database/database.js').booksPriorityDatabase;
 var Book = require('./book.js');
 
 
@@ -22,7 +21,7 @@ var User = function (name, role) {
 User.prototype.search = function (title, author) {
   return Book.prototype.search(title, author);
 }
-User.prototype.readAll = function () {
+User.prototype.readAllBooks = function () {
   return Book.prototype.readAll();
 }
 User.prototype.requestBook = function (title, author) {
@@ -38,8 +37,8 @@ User.prototype.requestBook = function (title, author) {
 
     time = new Date();
     timeOfRequest = time.toLocaleString();
-    requestInMilliseconds=`${time.getHours()+time.getMinutes()+time.getMilliseconds()}`
-    priorityQueue(bookID,userID,priorityOfUser,requestInMilliseconds); //adds request to priority queue
+    requestInMilliseconds = `${time.getHours()+time.getMinutes()+time.getMilliseconds()}`
+    priorityQueue(bookID, userID, priorityOfUser, requestInMilliseconds); //adds request to priority queue
     requestDatabase.push({
       nameOfUser,
       userID,
