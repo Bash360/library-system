@@ -12,5 +12,7 @@ return book.prototype.add(title, genre, author);
 Admin.prototype.getBookID=function(title, author){
   return book.prototype.getID(title, author);
 }
-Admin.prototype.upateBook=function(){}
+Admin.prototype.updateBook=function(bookID,copies){
+  return book.prototype.update(bookID,copies);
+}
 module.exports=Admin;
