@@ -5,7 +5,7 @@ var Book = function () {
 
 
 }
-Book.prototype.addBook = function (title, genre, author) {
+Book.prototype.add = function (title, genre, author) {
   var found = search(title, author);
   if (found) {
     found.copies += 1;
@@ -25,7 +25,7 @@ Book.prototype.addBook = function (title, genre, author) {
 
 
 }
-Book.prototype.getBookID = function (title, author) {
+Book.prototype.getID = function (title, author) {
   found = search(title, author);
   if (found) {
     return found.bookID;

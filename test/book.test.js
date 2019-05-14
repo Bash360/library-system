@@ -3,47 +3,47 @@ describe('test suite for book module search()', () => {
 
   it('returns true', () => {
     const myBook = new Book();
-    myBook.addBook('angels and demons', 'sci-fi', 'Dan Brown');
+    myBook.add('angels and demons', 'sci-fi', 'Dan Brown');
     expect(myBook.search('angels and demons', 'Dan Brown')).toMatch('found angels and demons \n by Dan Brown');
   });
   it('returns false', () => {
     const myBook = new Book();
-    myBook.addBook('angels and demons', 'sci-fi', 'Dan Brown');
+    myBook.add('angels and demons', 'sci-fi', 'Dan Brown');
     expect(myBook.search('the subtle art of not giving a fuck', 'Mark Mason')).toBeFalsy();
   });
 });
-describe("test suite for book module addBook", () => {
+describe("test suite for book module add", () => {
 
   it('returns book added ', () => {
     const myBook = new Book();
-    expect(myBook.addBook('angels and demons', 'sci-fi', 'Dan Brown')).toMatch('book created');
+    expect(myBook.add('angels and demons', 'sci-fi', 'Dan Brown')).toMatch('book created');
   });
 });
 describe('test suite for book module search()', () => {
 
   it('returns book added ', () => {
     const myBook = new Book();
-    myBook.addBook('angels and demons', 'sci-fi', 'Dan Brown');
+    myBook.add('angels and demons', 'sci-fi', 'Dan Brown');
     expect(myBook.search('angels and demons', 'Dan Brown')).toMatch('found angels and demons \n by Dan Brown');
   });
   it('returns false ', () => {
     const myBook = new Book();
-    myBook.addBook('angels and demons', 'sci-fi', 'Dan Brown');
+    myBook.add('angels and demons', 'sci-fi', 'Dan Brown');
     expect(myBook.search('angels and demons', 'Danny Brown')).toBeFalsy();
   });
 });
-describe("test suite for book module getBookID()", () => {
+describe("test suite for book module getID()", () => {
 
   it('returns an ID', () => {
     const myBook = new Book();
-    myBook.addBook('angels and demons', 'sci-fi', 'Dan Brown')
-    expect(myBook.getBookID('angels and demons', 'Dan Brown')).not.toMatch(' ');
+    myBook.add('angels and demons', 'sci-fi', 'Dan Brown')
+    expect(myBook.getID('angels and demons', 'Dan Brown')).not.toMatch(' ');
 
   });
   it('returns false', () => {
     const myBook = new Book();
-    myBook.addBook('angels and demons', 'sci-fi', 'Dan Brown')
-    expect(myBook.getBookID('angels and demons', 'Dan Brow')).toBeFalsy();
+    myBook.add('angels and demons', 'sci-fi', 'Dan Brown')
+    expect(myBook.getID('angels and demons', 'Dan Brow')).toBeFalsy();
 
   });
 });
@@ -51,7 +51,7 @@ describe("test suite for book readAll()", () => {
 
   it('returns an array', () => {
     const myBook = new Book();
-    myBook.addBook('angels and demons', 'sci-fi', 'Dan Brown');
+    myBook.add('angels and demons', 'sci-fi', 'Dan Brown');
     expect(myBook.readAll()).toHaveLength(1);
   });
   it('returns database empty', () => {
@@ -66,21 +66,21 @@ describe("test suite for book delete", () => {
 
   it('returns falsy ', () => {
     const myBook = new Book();
-    myBook.addBook('angels and demons', 'sci-fi', 'Dan Brown');
-    danBrown = myBook.getBookID()
+    myBook.add('angels and demons', 'sci-fi', 'Dan Brown');
+    danBrown = myBook.getID()
     expect(myBook.delete(danBrown)).toBeFalsy();
   });
 
   it('returns deleted ', () => {
     const myBook = new Book();
-    myBook.addBook('angels and demons', 'sci-fi', 'Dan Brown');
-    danBrown = myBook.getBookID('angels and demons', 'Dan Brown')
+    myBook.add('angels and demons', 'sci-fi', 'Dan Brown');
+    danBrown = myBook.getID('angels and demons', 'Dan Brown')
     expect(myBook.delete(danBrown)).toMatch('deleted');
   });
   it('returns deleted all books', () => {
     const myBook = new Book();
-    myBook.addBook('angels and demons', 'sci-fi', 'Dan Brown');
-    danBrown = myBook.getBookID('angels and demons', 'Dan Brown')
+    myBook.add('angels and demons', 'sci-fi', 'Dan Brown');
+    danBrown = myBook.getID('angels and demons', 'Dan Brown')
     expect(myBook.deleteAll()).toMatch('deleted all books');
   });
   it('returns database empty ', () => {
@@ -93,13 +93,13 @@ describe("test suite for book update()", () => {
 
   it('returns an copies added', () => {
     const myBook = new Book();
-    myBook.addBook('angels and demons', 'sci-fi', 'Dan Brown');
-    danBrown = myBook.getBookID('angels and demons', 'Dan Brown');
+    myBook.add('angels and demons', 'sci-fi', 'Dan Brown');
+    danBrown = myBook.getID('angels and demons', 'Dan Brown');
     expect(myBook.update(danBrown, 23)).toMatch('23 copies added to angels and demons')
   });
   it('returns false', () => {
     const myBook = new Book();
-    myBook.addBook('angels and demons', 'sci-fi', 'Dan Brown');
+    myBook.add('angels and demons', 'sci-fi', 'Dan Brown');
     expect(myBook.update(261, 45)).toBeFalsy();
   });
 });
