@@ -3,10 +3,10 @@ function generateRandom() {
   return Math.floor(Math.random() * 1000000).toString();
 }
 
-function generateBookID() {
+function generateID() {
   random = generateRandom();
-  var bookID = random.length <= 4 ? generateRandom() : random;
-  return bookID;
+  var ID = random.length <= 4 ? generateRandom() : random;
+  return ID;
 }
 function search(title, author) {
   var found = false;
@@ -23,4 +23,4 @@ function search(title, author) {
   }
   return found;
 }
-module.exports = {generateBookID,search};
+module.exports = {generateID,search};

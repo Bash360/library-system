@@ -1,5 +1,5 @@
 bookDatabase = require('./../database/database.js').bookDatabase;
-generateBookID = require('../helper-functions/helper-functions.js').generateBookID;
+generateBookID = require('../helper-functions/helper-functions.js').generateID;
 search = require('../helper-functions/helper-functions.js').search;
 var Book = function () {
 
@@ -60,7 +60,7 @@ Book.prototype.update = function (bookID, copies) {
   }
   if (found) {
     bookFound.copies += copies;
-    return `${copies} added to ${bookFound.title}`;
+    return `${copies} copies added to ${bookFound.title}`;
   }
   return found;
 }
