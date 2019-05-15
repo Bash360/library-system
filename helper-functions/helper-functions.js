@@ -2,40 +2,46 @@ bookDatabase = require('./../database/database.js').bookDatabase;
 const bookpriorityDatabase = require('./../database/database.js').booksPriorityDatabase;
 const requestDatabase = require('./../database/database.js').requestDatabase;
 /*
-helper function to generate random ID that her not less
+helper function to generate random Numbers for ID
  */
 function generateRandom() {
   return Math.floor(Math.random() * 1000000).toString();
 }
-
+/* helper function to generate book ID calling the random helper function
+ */
 function generateBookID() {
-  random = generateRandom();
-  var ID = random.length <= 4 ? generateRandom() : random;
+  var random = generateRandom();
+  var ID = random.length <= 4 ? generateRandom() : random; //for random number not less than four in length
   return ID;
 }
-
+/* helper function to generate user ID calling the random helper function
+ */
 function generateUserID() {
   random = generateRandom();
-  var ID = random.length <= 4 ? generateRandom() : random;
+  var ID = random.length <= 4 ? generateRandom() : random; //for random number not less than four in length
   return ID;
 }
 
-function search(title, author) {
+/* a helper function to search the book database and return the book found 
+ */
+function getBook(title, author) {
   var found = false;
   var bookFound;
   for (counter = 0; counter < bookDatabase.length; counter++) {
     if (bookDatabase[counter].title === title && bookDatabase[counter].author === author) {
       found = true;
-      bookFound = bookDatabase[counter];
+      bookFound = bookDatabase[counter]; //book found
       break;
     }
   }
   if (found) {
     return bookFound;
   }
-  return found;
+  return found; //returns false when book not found
 }
-
+/*
+a helper function to return priority 
+*/
 function generatePriority(role) {
   var rolesAndPriority = {
     'teacher': 1,
@@ -43,31 +49,32 @@ function generatePriority(role) {
     'junior student': 3
   };
   if (role in rolesAndPriority) {
-    return rolesAndPriority[role];
+    return rolesAndPriority[role]; // returns the equivalent priority of role e.g generatePriority('senior student') returns 2
   }
 }
-
+/* a helper function to handle priority complexity */
 function priorityComplexity(bookID, titleOfBook, authorOfBook, userID, priority, timeRequest) {
   found = false;
   for (counter = 0; counter < bookpriorityDatabase.length; counter++) {
     if (bookpriorityDatabase[counter].bookID === bookID) {
       bookpriorityDatabase[counter].request.push(priority + timeRequest + '.' + userID);
       bookpriorityDatabase[counter].request.sort(function (a, b) {
-       var reg=/\./g;
-       indexA=a.toString().search(reg);
-       indexB=b.toString().search(reg);
+        var reg = /\./g;
+        var indexA = a.toString().search(reg);
+        var indexB = b.toString().search(reg);
 
-        return +a.toString().substr(0,indexA)- +b.toString().substr(0,indexB);
-       
+        return +a.toString().substr(0, indexA) - +b.toString().substr(0, indexB);
+
       });
       found = true;
+      break;
     }
   }
   if (!found) {
-    request = [priority + timeRequest + '.' + userID];
+    requestArr = [priority + timeRequest + '.' + userID];
     bookpriorityDatabase.push({
       bookID,
-      request,
+      request: requestArr,
       titleOfBook,
       authorOfBook,
 
@@ -77,16 +84,13 @@ function priorityComplexity(bookID, titleOfBook, authorOfBook, userID, priority,
   }
 }
 
-function getRequest(userID, bookID) {
-  var found = false;
+function getRequest(userID) {
   for (counter = 0; counter < requestDatabase.length; counter++) {
-    if (requestDatabase[counter].userID === userID && requestDatabase[counter].bookID === bookID) {
-      found = requestDatabase[counter];
+    if (requestDatabase[counter].userID === userID) {
+      return requestDatabase[counter];
     }
   }
-  if (found) {
-    return found;
-  }
+
 
 
 }
@@ -95,7 +99,7 @@ function getRequest(userID, bookID) {
 module.exports = {
   generateBookID,
   generateUserID,
-  search,
+  getBook,
   generatePriority,
   priorityComplexity,
   getRequest

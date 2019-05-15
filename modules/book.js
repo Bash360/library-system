@@ -1,12 +1,12 @@
 bookDatabase = require('./../database/database.js').bookDatabase;
 generateBookID = require('../helper-functions/helper-functions.js').generateBookID;
-search = require('../helper-functions/helper-functions.js').search;
+getBook = require('../helper-functions/helper-functions.js').getBook;
 var Book = function () {
 
 
 }
 Book.prototype.add = function (title, genre, author) {
-  var found = search(title, author);
+  var found = getBook(title, author);
   if (found) {
     found.copies += 1;
   } else {
@@ -26,27 +26,34 @@ Book.prototype.add = function (title, genre, author) {
 
 }
 Book.prototype.getID = function (title, author) {
-  found = search(title, author);
+  found = getBook(title, author);
   if (found) {
     return found.bookID;
   }
   return false;
 
 }
-Book.prototype.search = function (title, author) {
-  var found = false;
-  var bookFound;
+Book.prototype.search = function (queryString) {
+  if (queryString === '') {
+    return 'cant search with an empty String'
+  }
+  found = false;
+  var booksFound = [];
+  var searchReg = new RegExp(queryString, 'i');
   for (counter = 0; counter < bookDatabase.length; counter++) {
-    if (bookDatabase[counter].title === title && bookDatabase[counter].author === author) {
+    var currentBook = bookDatabase[counter].title;
+
+    statusOfSearch = searchReg.test(currentBook);
+    if (statusOfSearch) {
+      booksFound.push(bookDatabase[counter]);
       found = true;
-      bookFound = bookDatabase[counter];
-      break;
     }
+
   }
   if (found) {
-    return `found ${bookFound.title} \n by ${bookFound.author} `;
+    return booksFound;
   }
-  return found;
+  return 'book not found';
 }
 Book.prototype.update = function (bookID, copies) {
   var found = false;

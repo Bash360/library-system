@@ -1,15 +1,20 @@
 Book = require('./../modules/book.js');
 describe('test suite for book module search()', () => {
 
-  it('returns true', () => {
+  it('returns an array', () => {
     const myBook = new Book();
     myBook.add('angels and demons', 'sci-fi', 'Dan Brown');
-    expect(myBook.search('angels and demons', 'Dan Brown')).toMatch('found angels and demons \n by Dan Brown');
+    expect(myBook.search('angels and demons')).toHaveLength(1);
   });
-  it('returns false', () => {
+  it('returns book not found ', () => {
     const myBook = new Book();
     myBook.add('angels and demons', 'sci-fi', 'Dan Brown');
-    expect(myBook.search('the subtle art of not giving a fuck', 'Mark Mason')).toBeFalsy();
+    expect(myBook.search('the subtle art of not giving a fuck')).toMatch('book not found');
+  });
+  it('returns cant search with an empty String', () => {
+    const myBook = new Book();
+    myBook.add('angels and demons', 'sci-fi', 'Dan Brown');
+    expect(myBook.search('')).toMatch('cant search with an empty String');
   });
 });
 describe("test suite for book module add", () => {
@@ -19,19 +24,7 @@ describe("test suite for book module add", () => {
     expect(myBook.add('angels and demons', 'sci-fi', 'Dan Brown')).toMatch('book created');
   });
 });
-describe('test suite for book module search()', () => {
 
-  it('returns book added ', () => {
-    const myBook = new Book();
-    myBook.add('angels and demons', 'sci-fi', 'Dan Brown');
-    expect(myBook.search('angels and demons', 'Dan Brown')).toMatch('found angels and demons \n by Dan Brown');
-  });
-  it('returns false ', () => {
-    const myBook = new Book();
-    myBook.add('angels and demons', 'sci-fi', 'Dan Brown');
-    expect(myBook.search('angels and demons', 'Danny Brown')).toBeFalsy();
-  });
-});
 describe("test suite for book module getID()", () => {
 
   it('returns an ID', () => {
