@@ -40,15 +40,16 @@ Admin.prototype.handleRequest = function () {
     var bookTitle = currentBookDetails.titleOfBook;
     var bookAuthor = currentBookDetails.authorOfBook;
     var bookID = currentBookDetails.bookID;
-    currentBook = search(bookTitle, bookAuthor);
-    var length=bookpriorityDatabase[counter].request.length
-    for (secondCounter = 0; secondCounter < length; secondCounter++) {
-      var unfilteredUserID = bookpriorityDatabase[counter].request[secondCounter];
-      var filteredUserID = unfilteredUserID.toString().match(/(?<=\.)\d{1,}/g).join('');
+    var currentBook = search(bookTitle, bookAuthor);
+    var requestArr = bookpriorityDatabase[counter].request;
+    for (secondCounter = 0; secondCounter < requestArr.length; secondCounter++) {
+      var unfilteredUserID = requestArr[secondCounter]
+      var filteredUserID = unfilteredUserID.match(/(?<=\.)\d{1,}/g).join('');
       var request = getRequest(filteredUserID, bookID);
       if (currentBook.copies !== 0) {
         currentBook.copies -= 1;
-        return request.requestStatus = 'request Approved';
+
+        request.requestStatus = 'request Approved';
       } else {
         request.requestStatus = 'book taken';
 
@@ -56,7 +57,8 @@ Admin.prototype.handleRequest = function () {
       }
     }
   }
-  // bookpriorityDatabase.length=0;
+  bookpriorityDatabase.length = 0;
+  return 'request Handled'
 
 }
 

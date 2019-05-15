@@ -38,7 +38,7 @@ User.prototype.requestBook = function (title, author) {
     time = new Date();
     timeOfRequest = time.toLocaleString();
     requestInMilliseconds = `${time.getHours()+time.getMinutes()+time.getMilliseconds()}`
-    priorityQueue(bookID,titleOfBook,authorOfBook, userID, priorityOfUser, requestInMilliseconds); //adds request to priority queue
+    priorityQueue(bookID, titleOfBook, authorOfBook, userID, priorityOfUser, requestInMilliseconds); //adds request to priority queue
     requestDatabase.push({
       nameOfUser,
       userID,

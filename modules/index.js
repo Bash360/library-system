@@ -11,3 +11,4 @@ zinachi2.requestBook('The Lost Symbol', 'Dan Brown');
 
 console.log(bash.handleRequest());
 console.log(bash.viewAllRequest());
+console.log(zinachi2.viewRequest());

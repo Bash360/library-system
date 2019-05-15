@@ -44,3 +44,11 @@ describe("test suite for library admin", () => {
     expect(bash.viewAllRequest()).toHaveLength(1);
   });
 });
+describe("test suite for library admin", () => {
+  it('returns request Handled', () => {
+    let bash = new Admin('mark bashir');
+    bash.addBook('The Lost Symbol', 'sci-fi', 'Dan Brown');
+    bash.requestBook('The Lost Symbol', 'Dan Brown');
+    expect(bash.handleRequest()).toMatch('request Handled');
+  });
+})
