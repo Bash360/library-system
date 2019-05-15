@@ -62,7 +62,7 @@ User.prototype.viewRequest = function () {
     }
   }
   if (found) {
-    return `Request for ${found.titleOfBook} ${found.requestStatus}......`;
+    return `Status of Request for ${found.titleOfBook} ${found.requestStatus}......`;
   }
   return 'no request available';
 }

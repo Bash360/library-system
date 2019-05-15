@@ -35,6 +35,9 @@ Admin.prototype.viewAllRequest = function () {
   return requestDatabase;
 }
 Admin.prototype.handleRequest = function () {
+  if (bookpriorityDatabase.length === 0) {
+    return 'no request';
+  }
   for (counter = 0; counter < bookpriorityDatabase.length; counter++) {
     var currentBookDetails = bookpriorityDatabase[counter];
     var bookTitle = currentBookDetails.titleOfBook;
