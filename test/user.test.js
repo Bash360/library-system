@@ -11,7 +11,7 @@ describe("test suite for user", () => {
   it('search to be defined', () => {
     bash = new User('mark bashir', 1);
 
-    expect(bash.readAll()).toBeDefined();
+    expect(bash.readAllBooks()).toBeDefined();
   });
 });
 describe("test suite for book user", () => {
@@ -23,21 +23,21 @@ describe("test suite for book user", () => {
   it('returns request pending', () => {
     bash = new User('mark bashir', 1);
     const myBook = new Book();
-    myBook.addBook('angels and demons', 'sci-fi', 'Dan Brown');
+    myBook.add('angels and demons', 'sci-fi', 'Dan Brown');
     expect(bash.requestBook('angels and demons', 'Dan Brown')).toMatch('request pending wait for approval of admin');
   });
   describe("test suite for book user", () => {
     it('returns no request available', () => {
       bash = new User('mark bashir', 1);
       const myBook = new Book();
-      myBook.addBook('angels and demons', 'sci-fi', 'Dan Brown');
+      myBook.add('angels and demons', 'sci-fi', 'Dan Brown');
       expect(bash.viewRequest()).toMatch('no request available');
     });
   });
   it('returns peending ', () => {
     bash = new User('mark bashir', 1);
     const myBook = new Book();
-    myBook.addBook('angels and demons', 'sci-fi', 'Dan Brown');
+    myBook.add('angels and demons', 'sci-fi', 'Dan Brown');
     bash.requestBook('angels and demons', 'Dan Brown');
     expect(bash.viewRequest()).toMatch('Request for angels and demons pending......');
   });
