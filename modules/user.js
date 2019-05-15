@@ -1,6 +1,6 @@
 var userDatabase = require('./../database/database.js').userDatabase;
 const generateUserID = require('../helper-functions/helper-functions.js').generateUserID;
-var search = require('../helper-functions/helper-functions.js').search;
+var getBook = require('../helper-functions/helper-functions.js').getBook;
 var generatePriority = require('../helper-functions/helper-functions.js').generatePriority;
 var priorityQueue = require('../helper-functions/helper-functions.js').priorityComplexity;
 const requestDatabase = require('./../database/database.js').requestDatabase;
@@ -18,14 +18,14 @@ var User = function (name, role) {
     userID: this.userID
   });
 }
-User.prototype.search = function (title, author) {
-  return Book.prototype.search(title, author);
+User.prototype.search = function (searchString) {
+  return Book.prototype.search(searchString);
 }
 User.prototype.readAllBooks = function () {
   return Book.prototype.readAll();
 }
 User.prototype.requestBook = function (title, author) {
-  var found = search(title, author);
+  var found = getBook(title, author);
   if (found && found.copies !== 0) {
     var titleOfBook = found.title;
     var authorOfBook = found.author;

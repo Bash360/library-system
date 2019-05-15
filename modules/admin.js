@@ -1,8 +1,7 @@
 var book = require('./book.js');
 var user = require('./user.js');
 const requestDatabase = require('./../database/database.js').requestDatabase;
-const bookDatabase = require('./../database/database.js').bookDatabase;
-var search = require('../helper-functions/helper-functions.js').search;
+var getBook = require('../helper-functions/helper-functions.js').getBook;
 var getRequest = require('../helper-functions/helper-functions.js').getRequest;
 const bookpriorityDatabase = require('./../database/database.js').booksPriorityDatabase;
 
@@ -43,7 +42,7 @@ Admin.prototype.handleRequest = function () {
     var bookTitle = currentBookDetails.titleOfBook;
     var bookAuthor = currentBookDetails.authorOfBook;
     var requestArr = currentBookDetails.request;
-    var currentBook = search(bookTitle, bookAuthor);
+    var currentBook = getBook(bookTitle, bookAuthor);
     for (secondCounter = 0; secondCounter < requestArr.length; secondCounter++) {
       var unfilteredUserID = requestArr[secondCounter]
       var filteredUserID = unfilteredUserID.match(/(?<=\.)\d{1,}/).join('');

@@ -10,7 +10,7 @@ function generateRandom() {
 /* helper function to generate book ID calling the random helper function
  */
 function generateBookID() {
-  random = generateRandom();
+  var random = generateRandom();
   var ID = random.length <= 4 ? generateRandom() : random; //for random number not less than four in length
   return ID;
 }
@@ -24,7 +24,7 @@ function generateUserID() {
 
 /* a helper function to search the book database and return the book found 
  */
-function search(title, author) {
+function getBook(title, author) {
   var found = false;
   var bookFound;
   for (counter = 0; counter < bookDatabase.length; counter++) {
@@ -99,7 +99,7 @@ function getRequest(userID) {
 module.exports = {
   generateBookID,
   generateUserID,
-  search,
+  getBook,
   generatePriority,
   priorityComplexity,
   getRequest

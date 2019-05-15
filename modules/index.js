@@ -21,3 +21,4 @@ console.log(zinachi.viewRequest());
 console.log(johnB.viewRequest());
 console.log(mary.viewRequest());
 console.log(bookDatabase);
+console.log(bash.search('lost'));
