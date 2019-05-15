@@ -1,17 +1,23 @@
 var Admin = require('./../modules/admin.js');
 var User = require('./user.js');
+bookDatabase = require('./../database/database.js').bookDatabase;
 const bookpriorityDatabase = require('./../database/database.js').booksPriorityDatabase;
 bash = new Admin('mark bashir');
-zinachi = new User('zinachi victor', 'junior student');
-enigma = new User('zinachi victor', 'teacher');
-zinachi2 = new User('zinachi victor', 'senior student');
-choya = new User('choya victor', 'senior student')
+zinachi = new User('zinachi junior', 'junior student');
+enigma = new User('Enigma', 'junior student');
+johnB = new User('john Bosco', 'senior student');
+mary=new User('mary','teacher');
 bash.addBook('The Lost Symbol', 'sci-fi', 'Dan Brown');
+bash.addBook('Inferno', 'sci-fi', 'Dan Brown');
+bash.addBook('Origin', 'sci-fi', 'Dan Brown');
 
-zinachi.requestBook('The Lost Symbol', 'Dan Brown');
-zinachi2.requestBook('The Lost Symbol', 'Dan Brown');
-choya.requestBook('The Lost Symbol', 'Dan Brown');
-console.log(bookpriorityDatabase);
-console.log(bash.handleRequest());
-console.log(zinachi2.viewRequest());
-
+enigma.requestBook('The Lost Symbol', 'Dan Brown');
+zinachi.requestBook('Inferno', 'Dan Brown');
+johnB.requestBook('Origin', 'Dan Brown');
+mary.requestBook('Origin','Dan Brown');
+bash.handleRequest();
+console.log(enigma.viewRequest());
+console.log(zinachi.viewRequest());
+console.log(johnB.viewRequest());
+console.log(mary.viewRequest());
+console.log(bookDatabase);

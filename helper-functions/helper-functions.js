@@ -53,21 +53,22 @@ function priorityComplexity(bookID, titleOfBook, authorOfBook, userID, priority,
     if (bookpriorityDatabase[counter].bookID === bookID) {
       bookpriorityDatabase[counter].request.push(priority + timeRequest + '.' + userID);
       bookpriorityDatabase[counter].request.sort(function (a, b) {
-       var reg=/\./g;
-       indexA=a.toString().search(reg);
-       indexB=b.toString().search(reg);
+        var reg = /\./g;
+        var indexA = a.toString().search(reg);
+        var indexB = b.toString().search(reg);
 
-        return +a.toString().substr(0,indexA)- +b.toString().substr(0,indexB);
-       
+        return +a.toString().substr(0, indexA) - +b.toString().substr(0, indexB);
+
       });
       found = true;
+      break;
     }
   }
   if (!found) {
-    request = [priority + timeRequest + '.' + userID];
+    requestArr = [priority + timeRequest + '.' + userID];
     bookpriorityDatabase.push({
       bookID,
-      request,
+      request: requestArr,
       titleOfBook,
       authorOfBook,
 
@@ -77,16 +78,13 @@ function priorityComplexity(bookID, titleOfBook, authorOfBook, userID, priority,
   }
 }
 
-function getRequest(userID, bookID) {
-  var found = false;
+function getRequest(userID) {
   for (counter = 0; counter < requestDatabase.length; counter++) {
-    if (requestDatabase[counter].userID === userID && requestDatabase[counter].bookID === bookID) {
-      found = requestDatabase[counter];
+    if (requestDatabase[counter].userID === userID) {
+      return requestDatabase[counter];
     }
   }
-  if (found) {
-    return found;
-  }
+
 
 
 }
