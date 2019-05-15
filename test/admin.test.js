@@ -46,9 +46,16 @@ describe("test suite for library admin", () => {
 });
 describe("test suite for library admin", () => {
   it('returns request Handled', () => {
-    let bash = new Admin('mark bashir');
+    var bash = new Admin('mark bashir');
     bash.addBook('The Lost Symbol', 'sci-fi', 'Dan Brown');
     bash.requestBook('The Lost Symbol', 'Dan Brown');
     expect(bash.handleRequest()).toMatch('request Handled');
+  });
+})
+describe("test suite for library admin", () => {
+  it('returns no request', () => {
+    var bash = new Admin('mark bashir');
+    bash.addBook('The Lost Symbol', 'sci-fi', 'Dan Brown');
+    expect(bash.handleRequest()).toMatch('no request');
   });
 })
