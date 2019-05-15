@@ -2,40 +2,46 @@ bookDatabase = require('./../database/database.js').bookDatabase;
 const bookpriorityDatabase = require('./../database/database.js').booksPriorityDatabase;
 const requestDatabase = require('./../database/database.js').requestDatabase;
 /*
-helper function to generate random ID that her not less
+helper function to generate random Numbers for ID
  */
 function generateRandom() {
   return Math.floor(Math.random() * 1000000).toString();
 }
-
+/* helper function to generate book ID calling the random helper function
+ */
 function generateBookID() {
   random = generateRandom();
-  var ID = random.length <= 4 ? generateRandom() : random;
+  var ID = random.length <= 4 ? generateRandom() : random; //for random number not less than four in length
   return ID;
 }
-
+/* helper function to generate user ID calling the random helper function
+ */
 function generateUserID() {
   random = generateRandom();
-  var ID = random.length <= 4 ? generateRandom() : random;
+  var ID = random.length <= 4 ? generateRandom() : random; //for random number not less than four in length
   return ID;
 }
 
+/* a helper function to search the book database and return the book found 
+ */
 function search(title, author) {
   var found = false;
   var bookFound;
   for (counter = 0; counter < bookDatabase.length; counter++) {
     if (bookDatabase[counter].title === title && bookDatabase[counter].author === author) {
       found = true;
-      bookFound = bookDatabase[counter];
+      bookFound = bookDatabase[counter]; //book found
       break;
     }
   }
   if (found) {
     return bookFound;
   }
-  return found;
+  return found; //returns false when book not found
 }
-
+/*
+a helper function to return priority 
+*/
 function generatePriority(role) {
   var rolesAndPriority = {
     'teacher': 1,
@@ -43,10 +49,10 @@ function generatePriority(role) {
     'junior student': 3
   };
   if (role in rolesAndPriority) {
-    return rolesAndPriority[role];
+    return rolesAndPriority[role]; // returns the equivalent priority of role e.g generatePriority('senior student') returns 2
   }
 }
-
+/* a helper function to handle priority complexity */
 function priorityComplexity(bookID, titleOfBook, authorOfBook, userID, priority, timeRequest) {
   found = false;
   for (counter = 0; counter < bookpriorityDatabase.length; counter++) {
