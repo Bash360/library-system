@@ -41,9 +41,9 @@ Book.prototype.search = function (queryString) {
   var booksFound = [];
   var searchReg = new RegExp(queryString, 'i');
   for (counter = 0; counter < bookDatabase.length; counter++) {
-    var currentBook = bookDatabase[counter].title;
-
-    statusOfSearch = searchReg.test(currentBook);
+    var currentBookTitle = bookDatabase[counter].title;
+    var currentBookAuthor=bookDatabase[counter].author;
+    statusOfSearch = searchReg.test(currentBookTitle)|| searchReg.test(currentBookAuthor);
     if (statusOfSearch) {
       booksFound.push(bookDatabase[counter]);
       found = true;
