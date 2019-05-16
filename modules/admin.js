@@ -75,14 +75,14 @@ Admin.prototype.handleRequest = function () {
     return 'no request';
   }
   for (counter = 0; counter < bookpriorityDatabase.length; counter++) {
-    var currentBookDetails = bookpriorityDatabase[counter]; 
+    var currentBookDetails = bookpriorityDatabase[counter];
     var bookTitle = currentBookDetails.titleOfBook;
     var bookAuthor = currentBookDetails.authorOfBook;
     var requestQueue = currentBookDetails.requestQueue; //book queque
     var bookFromLibrary = getBook(bookTitle, bookAuthor); //gets the current boook from book database
     for (secondCounter = 0; secondCounter < requestQueue.length; secondCounter++) {
       var priorityTimeUserID = requestQueue[secondCounter];
-      var userIDRegEx=/(?<=\.)\d{1,}/; //regular expression for extracting userID
+      var userIDRegEx = /(?<=\.)\d{1,}/; //regular expression for extracting userID
       var userID = priorityTimeUserID.match(userIDRegEx).join(''); //extracts user ID
       var request = getRequest(userID);
       if (bookFromLibrary.copies !== 0) {
