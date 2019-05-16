@@ -75,7 +75,7 @@ User.prototype.viewRequest = function () {
   for (counter = 0; counter < requestDatabase.length; counter++) {
     if (requestDatabase[counter].userID === this.userID) {
       request = requestDatabase[counter];
-      isFound=true;
+      isFound = true;
     }
   }
   if (isFound) {
@@ -87,7 +87,7 @@ User.prototype.viewRequest = function () {
 method to return book back to library
 */
 User.prototype.returnBook = function () {
-  var bookRequested = getRequest(this.userID); 
+  var bookRequested = getRequest(this.userID);
   if (!bookRequested) { //if request not found
     return 'no request made yet go search through our library and request for a book';
   }

@@ -57,9 +57,9 @@ function addToRequestQueue(bookID, titleOfBook, authorOfBook, userID, priority, 
   isFound = false;
   for (counter = 0; counter < bookpriorityDatabase.length; counter++) {
     if (bookpriorityDatabase[counter].bookID === bookID) { // checks if a request for the book has been made if it has adds it to the book queue
-      bookpriorityDatabase[counter].request.push(priority + timeRequest + '.' + userID); //concatenates the priority,time of request in milliseconds and the userId, userID after the decimal point
+      bookpriorityDatabase[counter].requestQueue.push(priority + timeRequest + '.' + userID); //concatenates the priority,time of request in milliseconds and the userId, userID after the decimal point
       /**  sorting book request by time and priority  */
-      bookpriorityDatabase[counter].request.sort(function (a, b) {
+      bookpriorityDatabase[counter].requestQueue.sort(function (a, b) {
         var reg = /\./g; //regular expression to find a decimal point
         var indexA = a.toString().search(reg); //uses regular expression defined above to find the index of the decimal point
         var indexB = b.toString().search(reg); //uses regular expression defined above to find the index of the decimal point
@@ -75,7 +75,7 @@ function addToRequestQueue(bookID, titleOfBook, authorOfBook, userID, priority, 
     requestArr = [priority + timeRequest + '.' + userID]; //adds request to the Book queque when no request for book has been made, first request in the queue
     bookpriorityDatabase.push({
       bookID,
-      request: requestArr,
+      requestQueue: requestArr,
       titleOfBook,
       authorOfBook,
 
