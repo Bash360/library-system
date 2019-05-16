@@ -6,10 +6,13 @@ var addToRequestQueue = require('../helper-functions/helper-functions.js').addTo
 const requestDatabase = require('./../database/database.js').requestDatabase;
 var getRequest = require('../helper-functions/helper-functions.js').getRequest;
 var Book = require('./book.js');
-/* 
-User constructor to add user to user database
-*/
 
+/**
+ *
+ * User constructor to create and add user to user database
+ * @param {string} name
+ * @param {string} role
+ */
 var User = function (name, role) {
 
   this.name = name;
@@ -21,21 +24,33 @@ var User = function (name, role) {
     userID: this.userID
   });
 }
-/* 
-method searches book database with book title and book author
-*/
+
+/**
+ * method searches book database with book title and book author
+ *
+ * @param {string} searchString
+ * @returns string
+ */
 User.prototype.search = function (searchString) {
   return Book.prototype.search(searchString);
 }
-/* 
-method readsAllBooks in the book database
+
+/**
+ * method readsAllBooks in the book database
+ *
+ * @returns array
  */
 User.prototype.readAllBooks = function () {
   return Book.prototype.readAll();
 }
-/* 
-method for user to request for book
-*/
+
+/**
+ * method for user to request for book
+ *
+ * @param {string} title
+ * @param {string} author
+ * @returns string
+ */
 User.prototype.requestBook = function (title, author) {
   var foundBook = getBook(title, author);
   if (foundBook && foundBook.copies !== 0) {
@@ -66,9 +81,12 @@ User.prototype.requestBook = function (title, author) {
   }
   return 'book not in the library or unavailable request unsuccessful';
 }
-/* 
-method to view Request made by user
-*/
+
+/**
+ * method to view Request made by user
+ *
+ * @returns string
+ */
 User.prototype.viewRequest = function () {
   var isFound = false;
   var request;
@@ -83,9 +101,12 @@ User.prototype.viewRequest = function () {
   }
   return 'no request available';
 }
-/* 
-method to return book back to library
-*/
+
+/**
+ * method to return book back to library
+ *
+ * @returns string
+ */
 User.prototype.returnBook = function () {
   var bookRequested = getRequest(this.userID);
   if (!bookRequested) { //if request not found

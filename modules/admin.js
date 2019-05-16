@@ -5,71 +5,95 @@ var getBook = require('../helper-functions/helper-functions.js').getBook;
 var getRequest = require('../helper-functions/helper-functions.js').getRequest;
 const bookpriorityDatabase = require('./../database/database.js').booksPriorityDatabase;
 
-/* 
-admin contructor 
-*/
+/**
+ * admin contructor 
+ *
+ * @param {string} name
+ */
 var Admin = function (name) {
   this.name = name;
   user.call(this, name, 'teacher'); //calls user constructor  and passes role as teacher so admin has teacher priority
 }
 Admin.prototype = Object.create(user.prototype);
 Admin.prototype.constructor = Admin;
-/* 
-method to add book to library 
-title,
-genre,
-author
-as arguments
-*/
+
+/**
+ * method to add book to library 
+ *
+ * @param {string} title
+ * @param {string} genre
+ * @param {string} author
+ * @returns string
+ */
 Admin.prototype.addBook = function (title, genre, author) {
   return book.prototype.add(title, genre, author);
 }
-/* 
-method to get ID of book from library
-title,
-author
-as arguments
-*/
+
+/**
+ * method to get ID of book from library
+ *
+ * @param {string} title
+ * @param {string} author
+ * @returns number
+ */
 Admin.prototype.getBookID = function (title, author) {
   return book.prototype.getID(title, author);
 }
-/* 
-method to update book in library 
-bookID,
-copies 
-as arguments
-*/
+
+
+
+/**
+ *
+ * method to update book in library 
+ * @param {number} bookID
+ * @param {number} copies
+ * @returns string
+ */
 Admin.prototype.updateBook = function (bookID, copies) {
   return book.prototype.update(bookID, copies);
 }
-/* 
-method to delete book from library 
-bookID as argument
-*/
+
+
+
+/**
+ *
+ * method to delete book from library 
+ * @param {number} bookID
+ * @returns string
+ */
 Admin.prototype.deleteBook = function (bookID) {
   return book.prototype.delete(bookID);
 }
-/* 
-method to delete All book from library
-no argument
-*/
+
+
+
+/**
+ * method to delete All book from library
+ *
+ * @returns string
+ */
 Admin.prototype.deleteAllBooks = function () {
   return book.prototype.deleteAll();
 }
-/* 
-method to view all request for book 
-no argument
-*/
+
+
+/**
+ * method to view all request for book 
+ *
+ * @returns array
+ */
 Admin.prototype.viewAllRequest = function () {
   if (requestDatabase.length === 0) {
     return 'no request';
   }
   return requestDatabase;
 }
-/* 
-method to handle book request it either approves request or updates request status to taken
-no argument
-*/
+
+/**
+ * method to handle book request it either approves request or updates request status to taken
+ *
+ * @returns string
+ */
 Admin.prototype.handleRequest = function () {
   if (bookpriorityDatabase.length === 0) {
     return 'no request';
