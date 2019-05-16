@@ -1,20 +1,31 @@
 bookDatabase = require('./../database/database.js').bookDatabase;
 const bookpriorityDatabase = require('./../database/database.js').booksPriorityDatabase;
 const requestDatabase = require('./../database/database.js').requestDatabase;
-/*
-helper function to generate random Numbers for ID
+
+/**
+ *helper method to generate random number 
+ *
+ * @returns number
  */
 function generateRandom() {
   return Math.floor(Math.random() * 1000000).toString();
 }
-/* helper function to generate book ID calling the random helper function
+
+/**
+ *helper method to generate book ID
+ *
+ * @returns number
  */
 function generateBookID() {
   var random = generateRandom();
   var ID = random.length <= 4 ? generateRandom() : random; //for random number not less than four in length
   return ID;
 }
-/* helper function to generate user ID calling the random helper function
+
+/**
+ *helper function to generate random user ID
+ *
+ * @returns number
  */
 function generateUserID() {
   random = generateRandom();
@@ -22,7 +33,13 @@ function generateUserID() {
   return ID;
 }
 
-/* a helper function to search the book database and return the book isFound 
+
+/**
+ *
+ * helper function to get book from database
+ * @param {string} title
+ * @param {string} author
+ * @returns object
  */
 function getBook(title, author) {
   var isFound = false;
@@ -39,9 +56,13 @@ function getBook(title, author) {
   }
   return isFound; //returns false when book not isFound
 }
-/*
-a helper function to return priority 
-*/
+
+/**
+ *
+ *
+ * @param {string} role
+ * @returns number
+ */
 function generatePriority(role) {
   var rolesAndPriority = {
     'teacher': 1,
@@ -52,7 +73,17 @@ function generatePriority(role) {
     return rolesAndPriority[role]; // returns the equivalent priority of role e.g generatePriority('senior student') returns 2
   }
 }
-/* a helper function to add request to queue */
+
+/**
+ *a helper method to add book request, to request queue
+ *
+ * @param {number} bookID 
+ * @param {string} titleOfBook string
+ * @param {string} authorOfBook string
+ * @param {number} userID
+ * @param {number} priority
+ * @param {number} timeRequest
+ */
 function addToRequestQueue(bookID, titleOfBook, authorOfBook, userID, priority, timeRequest) {
   isFound = false;
   for (counter = 0; counter < bookpriorityDatabase.length; counter++) {
@@ -84,7 +115,13 @@ function addToRequestQueue(bookID, titleOfBook, authorOfBook, userID, priority, 
     });
   }
 }
-/** helper function to get request with userID */
+
+/**
+ *
+ *helper method to get request from request database
+ * @param {number} userID
+ * @returns object
+ */
 function getRequest(userID) {
   for (counter = 0; counter < requestDatabase.length; counter++) {
     if (requestDatabase[counter].userID === userID) {
