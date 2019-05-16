@@ -4,6 +4,7 @@ var getBook = require('../helper-functions/helper-functions.js').getBook;
 var generatePriority = require('../helper-functions/helper-functions.js').generatePriority;
 var priorityQueue = require('../helper-functions/helper-functions.js').priorityComplexity;
 const requestDatabase = require('./../database/database.js').requestDatabase;
+var getRequest = require('../helper-functions/helper-functions.js').getRequest;
 var Book = require('./book.js');
 
 
@@ -65,6 +66,18 @@ User.prototype.viewRequest = function () {
     return `Status of Request for ${found.titleOfBook} ${found.requestStatus}......`;
   }
   return 'no request available';
+}
+User.prototype.returnBook = function () {
+  var bookRequested=getRequest(this.userID);
+  var requestIndex=requestDatabase.indexOf(bookRequested);
+  if (bookRequested.requestStatus === 'request Approved') {
+    var myBook = getBook(bookRequested.titleOfBook,bookRequested.authorOfBook);
+    myBook.copies += 1;
+    requestDatabase.splice(requestIndex,1);
+     return 'book returned back to library';
+  }
+  requestDatabase.splice(requestIndex,1);
+  return 'request was not successful no book to return';
 }
 
 module.exports = User;
