@@ -36,16 +36,16 @@ describe("test suite for book user", () => {
     expect(bash.viewRequest()).toMatch('no request available');
   });
   it('returns pending ', () => {
-    bash = new User('mark bashir', 'teacher');
+    var bash = new User('mark bashir', 'teacher');
     const myBook = new Book();
     myBook.add('angels and demons', 'sci-fi', 'Dan Brown');
     bash.requestBook('angels and demons', 'Dan Brown');
     expect(bash.viewRequest()).toMatch('Request for angels and demons pending......');
   });
-})
+});
 describe("test suite for book user", () => {
   it('returns no request made', () => {
-    bash = new User('mark bashir', 'teacher');
+    var bash = new User('mark bashir', 'teacher');
     const myBook = new Book();
     myBook.add('angels and demons', 'sci-fi', 'Dan Brown');
     expect(bash.returnBook()).toMatch('no request made');
@@ -65,5 +65,19 @@ describe("test suite for book user", () => {
     myBook.add('angels and demons', 'sci-fi', 'Dan Brown');
     expect(bash.returnBook()).toMatch('no request made yet go search through our library and request for a book');
   });
+  it('returns no request made yet go search through our library and request for a book', () => {
+    var bash = new User('mark bashir', 'teacher');
+    var zinachi = new User('zinachi victor', 'junior student');
+    var enigma = new Admin('bash bash');
+    var enigma1 = new Admin('bash bash');
+    var enigma2 = new Admin('bash bash');
+    bash.requestBook('angels and demons', 'Dan Brown');
+    enigma1.requestBook('angels and demons', 'Dan Brown');
+    enigma2.requestBook('angels and demons', 'Dan Brown');
+    enigma.requestBook('angels and demons', 'Dan Brown')
+    zinachi.requestBook('angels and demons', 'Dan Brown');
+    enigma.handleRequest();
+    expect(zinachi.returnBook()).toMatch('request was not successful no book to return');
+  });
 
-})
+});

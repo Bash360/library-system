@@ -75,9 +75,9 @@ function addToRequestQueue(bookID, titleOfBook, authorOfBook, userID, priority, 
     requestArr = [priority + timeRequest + '.' + userID]; //adds request to the Book queque when no request for book has been made, first request in the queue
     bookpriorityDatabase.push({
       bookID,
-      requestQueue: requestArr,
       titleOfBook,
       authorOfBook,
+      requestQueue: requestArr,
 
 
 
