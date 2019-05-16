@@ -1,30 +1,29 @@
 bookDatabase = require('./../database/database.js').bookDatabase;
 generateBookID = require('../helper-functions/helper-functions.js').generateBookID;
 getBook = require('../helper-functions/helper-functions.js').getBook;
-var Book = function () {
-
-
-}
+var Book = function () {}
+/* method to add book to book database */
 Book.prototype.add = function (title, genre, author) {
-  var found = getBook(title, author);
-  if (found) {
-    found.copies += 1;
-  } else {
+  var foundBook = getBook(title, author);
+  if (foundBook) { //checks if book is already in book database
+    foundBook.copies += 1; //increases copy by one if book is already in database
+  } else { //if not found it adds book to database
     var bookID = generateBookID();
 
-    copies = 1;
+    var copy = 1;
     bookDatabase.push({
       bookID,
       title,
       genre,
       author,
-      copies
+      copies: copy
     });
   }
   return 'book created';
 
 
 }
+/* method to get book ID */
 Book.prototype.getID = function (title, author) {
   found = getBook(title, author);
   if (found) {
@@ -33,17 +32,18 @@ Book.prototype.getID = function (title, author) {
   return false;
 
 }
+/* method to search for book by title and author */
 Book.prototype.search = function (queryString) {
   if (queryString === '') {
     return 'cant search with an empty String'
   }
   found = false;
   var booksFound = [];
-  var searchReg = new RegExp(queryString, 'i');
+  var searchRegularExpression = new RegExp(queryString, 'i');
   for (counter = 0; counter < bookDatabase.length; counter++) {
-    var currentBook = bookDatabase[counter].title;
-
-    statusOfSearch = searchReg.test(currentBook);
+    var currentBookTitle = bookDatabase[counter].title;
+    var currentBookAuthor = bookDatabase[counter].author;
+    var statusOfSearch = searchRegularExpression.test(currentBookTitle) || searchRegularExpression.test(currentBookAuthor);
     if (statusOfSearch) {
       booksFound.push(bookDatabase[counter]);
       found = true;
@@ -55,45 +55,59 @@ Book.prototype.search = function (queryString) {
   }
   return 'book not found';
 }
+/* update book method takes bookID and copies as arguments */
 Book.prototype.update = function (bookID, copies) {
-  var found = false;
+  var isFound = false;
   var bookFound;
   for (counter = 0; counter < bookDatabase.length; counter++) {
     if (bookDatabase[counter].bookID === bookID) {
-      found = true;
+      isFound = true;
       bookFound = bookDatabase[counter];
       break;
     }
   }
-  if (found) {
-    bookFound.copies += copies;
-    return `${copies} copies added to ${bookFound.title}`;
+  if (isFound) {
+    bookFound.copies += copies; //updates copies if found
+    return `${copies} copies added to ${bookFound.title}`; 
   }
-  return found;
+  return isFound;
 }
+/* 
+method to readAll book in database
+*/
 Book.prototype.readAll = function () {
   if (bookDatabase.length === 0) {
     return 'database empty';
   }
   return bookDatabase;
 }
+/* 
+method to delete book in database
+*/
 Book.prototype.delete = function (bookID) {
-  var found = false;
+  var isFound = false;
   var bookFound;
   for (counter = 0; counter < bookDatabase.length; counter++) {
     if (bookDatabase[counter].bookID === bookID) {
-      found = true;
+      isFound = true;
       bookFound = bookDatabase[counter];
       index = counter;
       break;
     }
   }
-  if (found) {
-    bookFound.copies === 1 ? bookDatabase.splice(index, 1) : bookFound.copies -= 1;
-    return `deleted`;
+  if (isFound) {
+    /* 
+    uses ternary operator to check if book copy is 1 removes book from database,
+    if its more than 1 copy, reduces book copy by 1
+    */
+    bookFound.copies === 1 ? bookDatabase.splice(index, 1) : bookFound.copies -= 1; 
+    return 'deleted';
   }
-  return found;
+  return isFound;
 }
+/* 
+method to delete every book in database
+*/
 Book.prototype.deleteAll = function () {
   if (bookDatabase.length === 0) {
     return 'database empty';

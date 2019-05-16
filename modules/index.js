@@ -1,12 +1,2 @@
 var Admin = require('./../modules/admin.js');
 var User = require('./user.js');
-bash=new User('bashir mark','senior student');
-zinachi=new User('zinachi victor','senior student');
-enigma= new Admin('bash bash');
-enigma.addBook('becoming','autobiography','michelle obama');
-zinachi.requestBook('becoming','michelle obama');
-enigma.handleRequest();
-console.log(zinachi.viewRequest());
-console.log(bash.viewRequest());
-console.log(zinachi.returnBook());
-console.log(bash.returnBook());
