@@ -2,7 +2,7 @@ var userDatabase = require('./../database/database.js').userDatabase;
 const generateUserID = require('../helper-functions/helper-functions.js').generateUserID;
 var getBook = require('../helper-functions/helper-functions.js').getBook;
 var generatePriority = require('../helper-functions/helper-functions.js').generatePriority;
-var priorityQueue = require('../helper-functions/helper-functions.js').priorityComplexity;
+var addToRequestQueue = require('../helper-functions/helper-functions.js').addToRequestQueue;
 const requestDatabase = require('./../database/database.js').requestDatabase;
 var getRequest = require('../helper-functions/helper-functions.js').getRequest;
 var Book = require('./book.js');
@@ -39,7 +39,7 @@ User.prototype.requestBook = function (title, author) {
     time = new Date();
     timeOfRequest = time.toLocaleString();
     requestInMilliseconds = `${time.getHours()+time.getMinutes()+time.getMilliseconds()}`
-    priorityQueue(bookID, titleOfBook, authorOfBook, userID, priorityOfUser, requestInMilliseconds); //adds request to priority queue
+    addToRequestQueue(bookID, titleOfBook, authorOfBook, userID, priorityOfUser, requestInMilliseconds); //adds request to priority queue
     requestDatabase.push({
       nameOfUser,
       userID,
