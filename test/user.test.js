@@ -59,5 +59,11 @@ describe("test suite for book user", () => {
     enigma.handleRequest();
     expect(bash.returnBook()).toMatch('book returned back to library');
   });
+  it('returns no request made yet go search through our library and request for a book', () => {
+    var bash = new User('mark bashir', 'teacher');
+    const myBook = new Book();
+    myBook.add('angels and demons', 'sci-fi', 'Dan Brown');
+    expect(bash.returnBook()).toMatch('no request made yet go search through our library and request for a book');
+  });
 
 })
