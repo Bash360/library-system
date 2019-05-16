@@ -5,7 +5,7 @@ var Book = function () {}
 
 /**
  *
- *
+ * add method to add book to book database
  * @param {string} title
  * @param {string} genre
  * @param {string} author
@@ -77,7 +77,7 @@ Book.prototype.search = function (queryString) {
 }
 /**
  *
- *update book method takes bookID and copies as arguments
+ * update book method takes bookID and copies as arguments
  * @param {number} bookID
  * @param {number} copies
  * @returns string
@@ -112,7 +112,7 @@ Book.prototype.readAll = function () {
 }
 
 /**
- *method to delete book in database
+ * method to delete book in database
  *
  * @param {Number} bookID
  * @returns string
