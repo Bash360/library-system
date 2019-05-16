@@ -68,15 +68,18 @@ User.prototype.viewRequest = function () {
   return 'no request available';
 }
 User.prototype.returnBook = function () {
-  var bookRequested=getRequest(this.userID);
-  var requestIndex=requestDatabase.indexOf(bookRequested);
-  if (bookRequested.requestStatus === 'request Approved') {
-    var myBook = getBook(bookRequested.titleOfBook,bookRequested.authorOfBook);
-    myBook.copies += 1;
-    requestDatabase.splice(requestIndex,1);
-     return 'book returned back to library';
+  var bookRequested = getRequest(this.userID);
+  if (!bookRequested) {
+    return 'no request made yet go search through our library and request for a book';
   }
-  requestDatabase.splice(requestIndex,1);
+  var requestIndex = requestDatabase.indexOf(bookRequested);
+  if (bookRequested.requestStatus === 'request Approved') {
+    var myBook = getBook(bookRequested.titleOfBook, bookRequested.authorOfBook);
+    myBook.copies += 1;
+    requestDatabase.splice(requestIndex, 1);
+    return 'book returned back to library';
+  }
+  requestDatabase.splice(requestIndex, 1);
   return 'request was not successful no book to return';
 }
 
