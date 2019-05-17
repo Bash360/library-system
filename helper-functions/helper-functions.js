@@ -1,6 +1,6 @@
-bookDatabase = require('./../database/database.js').bookDatabase;
-const bookpriorityDatabase = require('./../database/database.js').booksPriorityDatabase;
-const requestDatabase = require('./../database/database.js').requestDatabase;
+bookTable = require('./../database/database.js').bookTable;
+const requestQueueTable = require('./../database/database.js').requestQueueTable;
+const requestTable = require('./../database/database.js').requestTable;
 /**
  *helper method to generate random number 
  *
@@ -43,10 +43,10 @@ function generateUserID() {
 function getBook(title, author) {
   var isFound = false;
   var bookFound;
-  for (counter = 0; counter < bookDatabase.length; counter++) {
-    if (bookDatabase[counter].title === title && bookDatabase[counter].author === author) {
+  for (counter = 0; counter < bookTable.length; counter++) {
+    if (bookTable[counter].title === title && bookTable[counter].author === author) {
       isFound = true;
-      bookFound = bookDatabase[counter]; //book isFound
+      bookFound = bookTable[counter]; //book isFound
       break;
     }
   }
@@ -85,11 +85,11 @@ function generatePriority(role) {
  */
 function addToRequestQueue(bookID, titleOfBook, authorOfBook, userID, priority, timeRequest) {
   isFound = false;
-  for (counter = 0; counter < bookpriorityDatabase.length; counter++) {
-    if (bookpriorityDatabase[counter].bookID === bookID) { // checks if a request for the book has been made if it has adds it to the book queue
-      bookpriorityDatabase[counter].requestQueue.push(priority + timeRequest + '.' + userID); //concatenates the priority,time of request in milliseconds and the userId, userID after the decimal point
+  for (counter = 0; counter < requestQueueTable.length; counter++) {
+    if (requestQueueTable[counter].bookID === bookID) { // checks if a request for the book has been made if it has adds it to the book queue
+      requestQueueTable[counter].requestQueue.push(priority + timeRequest + '.' + userID); //concatenates the priority,time of request in milliseconds and the userId, userID after the decimal point
       /**  sorting book request by time and priority  */
-      bookpriorityDatabase[counter].requestQueue.sort(function (a, b) {
+      requestQueueTable[counter].requestQueue.sort(function (a, b) {
         var reg = /\./g; //regular expression to find a decimal point
         var indexA = a.toString().search(reg); //uses regular expression defined above to find the index of the decimal point
         var indexB = b.toString().search(reg); //uses regular expression defined above to find the index of the decimal point
@@ -103,7 +103,7 @@ function addToRequestQueue(bookID, titleOfBook, authorOfBook, userID, priority, 
   }
   if (!isFound) {
     var requestArr = [priority + timeRequest + '.' + userID]; //adds request to the Book queque when no request for book has been made, first request in the queue
-    bookpriorityDatabase.push({
+    requestQueueTable.push({
       bookID,
       titleOfBook,
       authorOfBook,
@@ -122,9 +122,9 @@ function addToRequestQueue(bookID, titleOfBook, authorOfBook, userID, priority, 
  * @returns object
  */
 function getRequest(userID) {
-  for (counter = 0; counter < requestDatabase.length; counter++) {
-    if (requestDatabase[counter].userID === userID) {
-      return requestDatabase[counter];
+  for (counter = 0; counter < requestTable.length; counter++) {
+    if (requestTable[counter].userID === userID) {
+      return requestTable[counter];
     }
   }
 

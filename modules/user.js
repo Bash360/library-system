@@ -1,9 +1,9 @@
-var userDatabase = require('./../database/database.js').userDatabase;
+var userTable = require('./../database/database.js').userTable;
 const generateUserID = require('../helper-functions/helper-functions.js').generateUserID;
 var getBook = require('../helper-functions/helper-functions.js').getBook;
 var generatePriority = require('../helper-functions/helper-functions.js').generatePriority;
 var addToRequestQueue = require('../helper-functions/helper-functions.js').addToRequestQueue;
-const requestDatabase = require('./../database/database.js').requestDatabase;
+const requestTable = require('./../database/database.js').requestTable;
 var getRequest = require('../helper-functions/helper-functions.js').getRequest;
 var Book = require('./book.js');
 
@@ -18,7 +18,7 @@ var User = function (name, role) {
   this.name = name;
   this.priority = generatePriority(role); //gets the equivalent priority for role
   this.userID = generateUserID(); //generates ID for user
-  userDatabase.push({
+  userTable.push({
     name: this.name,
     priority: this.priority,
     userID: this.userID
@@ -66,7 +66,7 @@ User.prototype.requestBook = function (title, author) {
     var timeOfRequest = time.toLocaleString();
     var requestInMilliseconds = `${time.getHours() + time.getMinutes() + time.getMilliseconds()}`;
     addToRequestQueue(bookID, titleOfBook, authorOfBook, userID, priorityOfUser, requestInMilliseconds); //adds request to book queue
-    requestDatabase.push({
+    requestTable.push({
       nameOfUser,
       userID,
       bookID,
@@ -90,9 +90,9 @@ User.prototype.requestBook = function (title, author) {
 User.prototype.viewRequest = function () {
   var isFound = false;
   var request;
-  for (counter = 0; counter < requestDatabase.length; counter++) {
-    if (requestDatabase[counter].userID === this.userID) {
-      request = requestDatabase[counter];
+  for (counter = 0; counter < requestTable.length; counter++) {
+    if (requestTable[counter].userID === this.userID) {
+      request = requestTable[counter];
       isFound = true;
     }
   }
@@ -112,14 +112,14 @@ User.prototype.returnBook = function () {
   if (!bookRequested) { //if request not found
     return 'no request made yet go search through our library and request for a book';
   }
-  var requestIndex = requestDatabase.indexOf(bookRequested);
+  var requestIndex = requestTable.indexOf(bookRequested);
   if (bookRequested.requestStatus === 'request Approved') {
     var myBook = getBook(bookRequested.titleOfBook, bookRequested.authorOfBook);
     myBook.copies += 1;
-    requestDatabase.splice(requestIndex, 1); //removes approved request from request database
+    requestTable.splice(requestIndex, 1); //removes approved request from request database
     return 'book returned back to library';
   }
-  requestDatabase.splice(requestIndex, 1); //removes unsuccessful request from request database
+  requestTable.splice(requestIndex, 1); //removes unsuccessful request from request database
   return 'request was not successful no book to return';
 }
 
@@ -131,9 +131,9 @@ User.prototype.returnBook = function () {
  */
 User.prototype.update=function(name){
 var userID =this.userID;
-     for(counter=0;counter<userDatabase.length;counter++){
-       if(userDatabase[counter].userID===userID){
-         userDatabase[counter].name=name;
+     for(counter=0;counter<userTable.length;counter++){
+       if(userTable[counter].userID===userID){
+         userTable[counter].name=name;
        }
      }
   var request=getRequest(userID);

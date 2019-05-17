@@ -1,5 +1,5 @@
-bookDatabase=[];
-userDatabase=[];
-requestDatabase=[];
-booksPriorityDatabase=[];
-module.exports={bookDatabase,userDatabase,requestDatabase,booksPriorityDatabase};
+bookTable=[];
+userTable=[];
+requestTable=[];
+requestQueueTable=[];
+module.exports={bookTable,userTable,requestTable,requestQueueTable};
