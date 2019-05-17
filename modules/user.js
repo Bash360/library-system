@@ -64,7 +64,7 @@ User.prototype.requestBook = function (title, author) {
 
     var time = new Date();
     var timeOfRequest = time.toLocaleString();
-    var requestInMilliseconds = `${time.getHours()+time.getMinutes()+time.getMilliseconds()}`
+    var requestInMilliseconds = `${time.getHours() + time.getMinutes() + time.getMilliseconds()}`;
     addToRequestQueue(bookID, titleOfBook, authorOfBook, userID, priorityOfUser, requestInMilliseconds); //adds request to book queue
     requestDatabase.push({
       nameOfUser,
