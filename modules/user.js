@@ -123,4 +123,24 @@ User.prototype.returnBook = function () {
   return 'request was not successful no book to return';
 }
 
+/**
+ *
+ *method to update user details
+ * @param {string} name
+ * @returns string
+ */
+User.prototype.update=function(name){
+var userID =this.userID;
+     for(counter=0;counter<userDatabase.length;counter++){
+       if(userDatabase[counter].userID===userID){
+         userDatabase[counter].name=name;
+       }
+     }
+  var request=getRequest(userID);
+     if(request!==undefined){
+       request.nameOfUser=name;
+     }
+     return 'user details updated';
+}
+
 module.exports = User;

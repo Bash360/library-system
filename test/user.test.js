@@ -81,3 +81,10 @@ describe("test suite for book user", () => {
   });
 
 });
+describe("test suite for user", () => {
+  it('returns user details updated', () => {
+    bash = new User('mark bashir', 'teacher');
+
+    expect(bash.update('bashorun')).toMatch('user details updated');
+  });
+});

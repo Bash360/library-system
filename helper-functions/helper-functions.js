@@ -1,7 +1,6 @@
 bookDatabase = require('./../database/database.js').bookDatabase;
 const bookpriorityDatabase = require('./../database/database.js').booksPriorityDatabase;
 const requestDatabase = require('./../database/database.js').requestDatabase;
-
 /**
  *helper method to generate random number 
  *
@@ -103,7 +102,7 @@ function addToRequestQueue(bookID, titleOfBook, authorOfBook, userID, priority, 
     }
   }
   if (!isFound) {
-    requestArr = [priority + timeRequest + '.' + userID]; //adds request to the Book queque when no request for book has been made, first request in the queue
+    var requestArr = [priority + timeRequest + '.' + userID]; //adds request to the Book queque when no request for book has been made, first request in the queue
     bookpriorityDatabase.push({
       bookID,
       titleOfBook,
