@@ -1,9 +1,9 @@
 var book = require('./book.js');
 var user = require('./user.js');
-const requestDatabase = require('./../database/database.js').requestDatabase;
+const requestTable = require('./../database/database.js').requestTable;
 var getBook = require('../helper-functions/helper-functions.js').getBook;
 var getRequest = require('../helper-functions/helper-functions.js').getRequest;
-const bookpriorityDatabase = require('./../database/database.js').booksPriorityDatabase;
+const requestQueueTable = require('./../database/database.js').requestQueueTable;
 
 /**
  * admin contructor 
@@ -83,10 +83,10 @@ Admin.prototype.deleteAllBooks = function () {
  * @returns array
  */
 Admin.prototype.viewAllRequest = function () {
-  if (requestDatabase.length === 0) {
+  if (requestTable.length === 0) {
     return 'no request';
   }
-  return requestDatabase;
+  return requestTable;
 }
 
 /**
@@ -95,11 +95,11 @@ Admin.prototype.viewAllRequest = function () {
  * @returns string
  */
 Admin.prototype.handleRequest = function () {
-  if (bookpriorityDatabase.length === 0) {
+  if (requestQueueTable.length === 0) {
     return 'no request';
   }
-  for (counter = 0; counter < bookpriorityDatabase.length; counter++) {
-    var currentBookDetails = bookpriorityDatabase[counter];
+  for (counter = 0; counter < requestQueueTable.length; counter++) {
+    var currentBookDetails = requestQueueTable[counter];
     var bookTitle = currentBookDetails.titleOfBook;
     var bookAuthor = currentBookDetails.authorOfBook;
     var requestQueue = currentBookDetails.requestQueue; //book queque
@@ -117,7 +117,7 @@ Admin.prototype.handleRequest = function () {
       }
     }
   }
-  bookpriorityDatabase.length = 0;
+  requestQueueTable.length = 0;
   return 'request Handled';
 
 }
