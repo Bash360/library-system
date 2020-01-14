@@ -1,0 +1,11 @@
+var Admin = require('./../modules/admin.js');
+var User = require('./user.js');
+var bash = new Admin('mark bashir');
+var enigma = new User('bash bash', 'junior student');
+var bash2 = new User('bash2', 'junior student');
+bash.addBook('angels and demons', 'sci-fi', 'Robert Langdon');
+bash.addBook('da vinci code', 'sci-fi', 'Robert Langdon');
+enigma.requestBook('angels and demons', 'Robert Langdon');
+bash2.requestBook('angels and demons', 'Robert Langdon');
+bash.handleRequest();
+console.log(bash.viewAllRequest());
